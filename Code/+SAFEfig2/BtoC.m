@@ -1,0 +1,48 @@
+function BtoC
+loadSurveyData;
+
+%%
+figure;
+currPos = get(gcf, 'Position');
+set(gcf, 'Position', currPos.*[1,1,1.5,1]);  
+nCols = 6;
+
+subplot(2,nCols,1)
+[roleLabels,~,frequency] = unique(dgs.CurrentRole);
+roleLabels = strrep(roleLabels, 'PhD Student', 'PhD');
+bar(histc(frequency,1:4), 'FaceColor', 'flat', 'CData', [colour.PI; colour.PostDoc; colour.PhD; colour.RA]./255, 'BarWidth', 0.7);
+set(gca, "XTickLabel", roleLabels,'XTickLabelRotation', 90)
+box off
+xExtent = 0.1;
+set(gca, 'Position', [0.1 0.1 xExtent 0.8])
+xlim([0.5 4.5])
+
+subplot(1,nCols,2:3)
+hold on
+[roleLabels,~,frequency] = unique(dgs.CurrentRole);
+plotCols = [colour.PI; colour.PostDoc; colour.PhD; colour.RA]./255;
+for i = 1:length(roleLabels)
+    subYears = dgs.YearsInRole(frequency==i);
+    subYearLabels =  [{'<1' }, {'1-2'}, {'2-3'}, {'3-4'}, {'4+' }];
+    pDat = zeros(1, length(subYearLabels));
+    for j = 1:length(subYearLabels)
+        pDat(j) = mean(strcmp(subYears, subYearLabels{j}));
+    end
+    plot(1:5, pDat, '-', 'Color', plotCols(i,:), 'LineWidth', 2)
+    plot(1:5, pDat, '.', 'Color', plotCols(i,:), 'MarkerSize', 20)
+end
+pDat = cellfun(@(x) mean(strcmp(dgs.YearsInRole, x)), subYearLabels);
+plot(1:5, pDat, '-k', 'LineWidth', 2)
+plot(1:5, pDat, '.k', 'MarkerSize', 20)
+
+
+set(gca, "XTickLabel", subYearLabels,'XTickLabelRotation', 90)
+box off
+currPos = get(gca, 'Position');
+set(gca, 'Position', [currPos(1) 0.1 xExtent*3 0.8])
+xlim([0.5 5.5])
+ylim([0,0.5])
+%%
+% functionPath = mfilename('fullpath');
+% export_fig(functionPath, '-pdf');
+

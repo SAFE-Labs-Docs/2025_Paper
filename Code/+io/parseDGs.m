@@ -1,0 +1,84 @@
+function [dgs, dgs_labels] = parseDGs(data)
+
+dgs_labels = io.getDGs();
+
+nG= numel(dgs_labels);
+dgs = data(:,2:6);
+nA = numel(dgs.CurrentRole);
+
+for iA = 1: nA
+    switch dgs.CurrentRole{iA}
+        case 'Assistant professor'
+            dgs.CurrentRole{iA} = 'PI';
+        case 'Group Leader'
+            dgs.CurrentRole{iA} = 'PI';
+        case 'Principal investigator'
+            dgs.CurrentRole{iA} = 'PI';
+        case 'Project Leader'
+            dgs.CurrentRole{iA} = 'PI';
+        case 'Intern'
+            dgs.CurrentRole{iA} = 'PhD Student';
+        case 'Master Student'
+            dgs.CurrentRole{iA} = 'PhD Student';
+        case 'Masters Student'
+            dgs.CurrentRole{iA} = 'PhD Student';
+        case 'Newly graduated as PhD'
+            dgs.CurrentRole{iA} = 'Postdoc';
+        case 'Researcher'
+            dgs.CurrentRole{iA} = 'Postdoc';
+        case 'Research fellow'
+            dgs.CurrentRole{iA} = 'Postdoc';
+        case 'Research Fellow'
+            dgs.CurrentRole{iA} = 'Postdoc';
+        case 'research scientist'
+            dgs.CurrentRole{iA} = 'Postdoc';
+        case 'Research engineer'
+            dgs.CurrentRole{iA} = 'RA';
+        case 'Research Assistant'
+            dgs.CurrentRole{iA} = 'RA';
+        case 'Technician'
+            dgs.CurrentRole{iA} = 'RA';
+        case 'lab manager'
+            dgs.CurrentRole{iA} = 'RA';
+
+    end
+
+ switch dgs.Field{iA}
+     case {'Neuroscience', 'Neurobiology' , 'microbiota-gut-brain axis' , 'Neuroscience and Behavioral Science' , 'Neurobiolology' , 'Psychology'}
+         dgs.Field{iA} = 'Neuro & Behavior';
+
+     case {'Biophysics - cell physiology' , 'Biophysics', 'Molecular Biology and Genetics', 'Functional Genomics',  'Cell Biology and Cellular Signaling'}
+         dgs.Field{iA} = 'Cell & Molecular';
+
+     case {'Cancer biology' , 'Molecular Oncology', 'Molecular oncology', 'Cancer Biology'}
+         dgs.Field{iA} = 'Cancer';
+     
+     case {'Developmental Biology and Stem Cells'}
+         dgs.Field{iA} = 'Developmental';
+
+     case {'Microbiology, molecular biology' , 'Microbiology and Virology' , 'Microbial evolutionary ecology' , 'Parasitology' , 'Immunology and Infectious Diseases'}
+         dgs.Field{iA} = 'Immuno & Microbiology';
+
+     case {'Chemical Engineering' , 'Synthetic', 'Chemical and Synthetic Biology',...
+             'Biochemistry' , 'Biotechnology' , 'Functional morphology', 'Biochemistry and Structural Biology', 'chemistry'}
+%          dgs.Field{iA} = 'Synthetic Biology';
+         dgs.Field{iA} = 'Synthetic & Structural';
+
+     case {'Medical Imaging' , 'Optics', 'Imaging Physics', 'Medical imaging'}
+         dgs.Field{iA} = 'Other'; %Imaging?
+
+     case 'Ecology and Evolutionary Biology'
+         dgs.Field{iA} = 'Ecology & Evolution';
+
+     case 'Plant Biology'
+         dgs.Field{iA} = 'Plants';
+
+     case 'Systems Biology and Bionformatics'
+         dgs.Field{iA} = 'Bionformatics';
+ end
+end
+%     %% basic plotting
+% plt.dgspie(dgs);
+
+
+end

@@ -1,0 +1,26 @@
+function b
+loadSurveyData;
+%%
+subplot(1,4,1)
+[roleLabels,~,frequency] = unique(dgs.CurrentRole);
+roleLabels = strrep(roleLabels, 'PhD Student', 'PhD');
+bar(histc(frequency,1:4), 'FaceColor', 'flat', 'CData', [colour.PI; colour.PostDoc; colour.PhD; colour.RA]./255, 'BarWidth', 0.7);
+set(gca, "XTickLabel", roleLabels,'XTickLabelRotation', 90)
+box off
+set(gca, 'Position', [0.1 0.1 0.2 0.8])
+xlim([0.5 4.5])
+%%
+subplot(1,4,2:4); [countries,~,frequency] = unique(dgs.Country); cla
+countries = strrep(countries, 'The Netherlands', 'Netherlands');
+countries = strrep(countries, 'United Kingdom', 'UK');
+
+countryCounts = histc(frequency,1:max(frequency));
+[sortedCountryCounts, sortIdx] = sort(countryCounts, 'descend');
+sortedCountries = countries(sortIdx);
+endIdx = find(sortedCountryCounts < 2, 1);
+endIdx = length(sortedCountryCounts+1);
+bar(1:endIdx-1, sortedCountryCounts(1:endIdx-1)', 'k', 'FaceColor', 'flat');
+set(gca, "XTickLabel", sortedCountries(1:endIdx-1), 'XTickLabelRotation', 90, 'XTick', 1:endIdx-1)
+box off
+xlim([0.5 endIdx-1])
+
