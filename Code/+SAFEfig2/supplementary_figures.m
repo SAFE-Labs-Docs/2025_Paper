@@ -1,15 +1,23 @@
 clear;
+% 
+% %% Analysis of application preferences
+% 
+% data_repo = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Data';
+% code_repo = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Code';
+% 
+% data_folder = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Data';
+% addpath(data_folder);
+% 
+% addpath(genpath(code_repo))
 
-%% Analysis of application preferences
+%% Set Paths
 
-data_repo = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Data';
-code_repo = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Code';
-
-data_folder = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Data';
-addpath(data_folder);
-
+%path to the code
+code_repo = 'D:\OneDrive - Fondazione Istituto Italiano Tecnologia\Documents\Code\2025_bioRxiv\Code';
 addpath(genpath(code_repo));
-
+%let's set all the other paths
+setPaths_LFR;
+data_folder = data_repo;
 %% load application data
 load('workshop_topics.mat');
 load('workshop_formats.mat');
@@ -161,7 +169,6 @@ statements_sort= statements(idx_ses);
 sessions_sort= sessions(idx_ses);
 
 %%
-setPaths;
 
 data = readtable(fullfile(data_repo, internal_handbook_survey),'VariableNamingRule','preserve');
 

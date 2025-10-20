@@ -1,15 +1,23 @@
 clear;
+% 
+% %% Analysis of application preferences
+% 
+% data_repo = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Data';
+% code_repo = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Code';
+% 
+% data_folder = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Data';
+% addpath(data_folder);
+% 
+% addpath(genpath(code_repo))
 
-%% Analysis of application preferences
+%% Set Paths
 
-data_repo = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Data';
-code_repo = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Code';
-
-data_folder = '/Users/federico/Documents/GitHub/SAFELabs/Survey/Data';
-addpath(data_folder);
-
+%path to the code
+code_repo = 'D:\OneDrive - Fondazione Istituto Italiano Tecnologia\Documents\Code\2025_bioRxiv\Code';
 addpath(genpath(code_repo));
-
+%let's set all the other paths
+setPaths_LFR;
+data_folder = data_repo;
 %% load application data
 load('workshop_topics.mat');
 load('workshop_formats.mat');
@@ -161,7 +169,6 @@ statements_sort= statements(idx_ses);
 sessions_sort= sessions(idx_ses);
 
 %%
-setPaths;
 
 data = readtable(fullfile(data_repo, internal_handbook_survey),'VariableNamingRule','preserve');
 
@@ -413,7 +420,7 @@ annotation('textbox',[0.72 0.9 0.05 0.05], ...
 
 
 
-ax1 = subplot(6, 10, 32);
+ax1 = subplot(6, 10, [32,33]);
 plot([3 3], [0.5 1.5], '--r');hold on;
 errorbar(statements_eval_sort(1),1,std_statements_sort(1),'ok','horizontal', 'Color','k', 'MarkerFaceColor', [0 0 0],'MarkerEdgeColor', [0 0 0],'MarkerSize',5);
 set(gca, 'XTick', [1:5], 'YTick',  [1],'YTickLabel',globalLabels)
@@ -422,8 +429,8 @@ xlim([1 6])
 ylim([0.5 1.5])
 formatAxes
 title('Overall eval')
-annotation('textbox',[0.02 0.93 0.05 0.05][0.1 0.9 0.05 0.05], ...
-    'String','a','Fontsize', 14, 'FontWeight', 'bold', 'EdgeColor','none')
+annotation('textbox',[0.1 0.5 0.05 0.05], ...
+    'String','e','Fontsize', 14, 'FontWeight', 'bold', 'EdgeColor','none')
 
 ax2= subplot(6, 10, [42, 43, 52, 53])
 plot([3 3], [1.5 7.5], '--r');hold on;
@@ -433,8 +440,8 @@ xlim([1 6])
 ylim([1.5 7.5])
 formatAxes
 title('Statements eval')
-annotation('textbox',[0.02 0.73 0.05 0.05], ...
-    'String','b','Fontsize', 14, 'FontWeight', 'bold', 'EdgeColor','none')
+annotation('textbox',[0.1 0.33 0.05 0.05], ...
+    'String','f','Fontsize', 14, 'FontWeight', 'bold', 'EdgeColor','none')
 xlabel('Score')
 linkaxes([ax1, ax2], 'x')
 
@@ -450,8 +457,8 @@ ylabel('Score')
 formatAxes
 title('Sessions Eval')
 
-annotation('textbox',[0.42 0.73 0.05 0.05], ...
-    'String','c','Fontsize', 14, 'FontWeight', 'bold', 'EdgeColor','none')
+annotation('textbox',[0.34 0.33 0.05 0.05], ...
+    'String','g','Fontsize', 14, 'FontWeight', 'bold', 'EdgeColor','none')
 
 
 % saveas(gcf, fullfile(code_repo,'Apps_&_Workshop_feedback.pdf'));
@@ -465,8 +472,8 @@ ylabel('Publicly document? (%)')
 formatAxes
 title('Handbook Internal Survey')
 
-annotation('textbox',[0.64 0.73 0.05 0.05], ...
-    'String','d','Fontsize', 14, 'FontWeight', 'bold', 'EdgeColor','none')
+annotation('textbox',[0.52 0.33 0.05 0.05], ...
+    'String','h','Fontsize', 14, 'FontWeight', 'bold', 'EdgeColor','none')
 
 
 

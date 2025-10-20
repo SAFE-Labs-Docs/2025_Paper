@@ -23,3 +23,5 @@ SAFEfig2.Fig5;
 SAFEfig2.Fig6;
 
 %% These are the supplements
+
+SAFEfig2.supplementary_figures;
