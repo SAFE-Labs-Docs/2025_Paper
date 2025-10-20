@@ -1,5 +1,4 @@
 function Fig3
-
 % requires the violin plot function  for matlab which can be found there:
 % https://fr.mathworks.com/matlabcentral/fileexchange/170126-violinplot-matlab
 loadSurveyData;
@@ -218,126 +217,121 @@ end
 
 
 
-% %% OLD PANEL i: plot correlation between difference of mean importance score between PIs and lab members and mean importance across all
-% RoleList = {'PI' ; 'Postdoc'; 'PhD Student' ;  'RA' };
-% GroupBy = [1 2 2 2];
-% GroupN  = {'Group Leader','Group Members'};
-% Im = answ.importance;
-% 
-% Ug = unique(GroupBy,'stable');
-% m=[];
-% for i=1:length(Ug)
-%     dummy = Ug(i) == GroupBy;
-%     idx = ismember(dgs{:, which_cat}, RoleList(dummy));
-%     m(i,:) = mean(Im(idx,:));
-% 
-% end
-% M=[];
-% for i= 1:length(uniqueRoles)
-%     idx = strcmp(dgs{:, which_cat}, uniqueRoles{i}); % keep observations for each category
-%     M(i,:) = mean(Im(idx,:));
-% end
-% M = nanmean(M);
-% D = m(1,:) - m(2,:);
-% lm = fitlm(M, D, "Intercept",true, "RobustOpts","on");
-% 
-% A5 = axes('position',[A(1) A(2)-0.18 A(3) 0.13]);
-% A = get(gca,'Position');
-% plot(M, D, 'o','MarkerFaceColor','k', 'MarkerEdgeColor','k','MarkerSize',4); hold on
-% 
-% [cc,p] = corr(sorted_imp_scores', imp_sorted_hme');S = pRules(p);
-% 
-% [cc_s,p_s] = corr(sorted_imp_scores', imp_sorted_hme', 'Type', 'Spearman');
-% 
-% % [x_sorted, idx] = sort(M);
-% % y_sorted = D(idx);
-% % 
-% % y_smooth = smooth(x_sorted, y_sorted, 0.8, 'lowess');
-% % plot(x_sorted, y_smooth, 'k', 'linewidth', 2)
-% 
-% x = M';
-% y = D';
-% % Compute ranks
-% x_ranks = tiedrank(x);
-% y_ranks = tiedrank(y);
-% 
-% % Compute Spearman correlation
-% [rho, sp] = corr(x, y, 'Type', 'Spearman'); %%%% ADD THIS AMONG THE STATS
-% 
-% % Fit linear regression on ranks
-% p = polyfit(x_ranks, y_ranks, 1);
-% y_fit = polyval(p, x_ranks);
-% 
-% % Map rank back to quantile positions (approximate for demo)
-% sortedy = sort(y, 'ascend');
-% intercept = (sortedy(floor(min(y_fit))) + sortedy(ceil(min(y_fit))))/2;
-% 
-% y_pred = ((intercept- min(y_fit))/ max(y_fit)) * (max(y)-min(y)) + ((y_fit - min(y_fit))/ max(y_fit)) * (max(y)-min(y));
-% x_pred = min(x) + (( x_ranks-1) / max( x_ranks)) * (max(x)-min(x));
-% 
-% [~, idx]= sort(y_pred, 'ascend');
-% 
-% % figure; 
-% % plot(M, D ,'o'); hold on
-% plot(x(idx), smooth(y_pred(idx),3), 'r-', 'LineWidth', 2);
-% 
-% Stats{k+3,1} = [Rl(k),{p}];
-% % plot(lm,'Marker','.','MarkerEdgeColor','none','MarkerFaceColor','none')
-% 
-% xlabel('Mean importance across all')
-% ylabel({'Difference of importance score','between groupe leaders and members'})
-% legend('off')
-% box off
-%  title(['r = ',num2str(round(cc,4)),S],'FontSize',FontSz)
-% set(gca,'FontSize',FontSz)
-% xlim([3.5 5])
-% addLetter(gca,'i')
-% 
-
-%% NEW PANEL i: plot correlation between difference of mean importance score between PIs and lab members and mean implementation across all
-
+%% plot correlation between difference of mean importance score between PIs and lab members and mean importance across all
 RoleList = {'PI' ; 'Postdoc'; 'PhD Student' ;  'RA' };
 GroupBy = [1 2 2 2];
 GroupN  = {'Group Leader','Group Members'};
-Ie = answ.isEstablished;
-Imp = answ.importance;
+Im = answ.importance;
 
 Ug = unique(GroupBy,'stable');
 m=[];
 for i=1:length(Ug)
     dummy = Ug(i) == GroupBy;
     idx = ismember(dgs{:, which_cat}, RoleList(dummy));
-    m(i,:) = nanmean(Imp(idx,:));
-end
+    m(i,:) = mean(Im(idx,:));
 
+end
 M=[];
 for i= 1:length(uniqueRoles)
     idx = strcmp(dgs{:, which_cat}, uniqueRoles{i}); % keep observations for each category
-    M(i,:) = nanmean(Ie(idx,:));
+    M(i,:) = mean(Im(idx,:));
 end
 M = nanmean(M);
 D = m(1,:) - m(2,:);
-
-[cc,p] = corr(D', M'); 
-S = pRules(p);
-lm = fitlm(D, M, "Intercept",true, "RobustOpts","on");
+lm = fitlm(M, D, "Intercept",true, "RobustOpts","on");
 
 A5 = axes('position',[A(1) A(2)-0.18 A(3) 0.13]);
 A = get(gca,'Position');
+plot(M, D, 'o','MarkerFaceColor','k', 'MarkerEdgeColor','k','MarkerSize',4); hold on
 
-plot(D, M, 'o','MarkerFaceColor','k', 'MarkerEdgeColor','k','MarkerSize',4); hold on
-plot(lm,'Marker','.','MarkerEdgeColor','none','MarkerFaceColor','none')
-plot([0 0], [ -1 1], '--', 'LineWidth', 0.2,'Color', [0.5 0.5 0.5] );
-plot([-1 1], [0 0],  '--', 'LineWidth', 0.2,'Color', [0.5 0.5 0.5]);
-ylabel('Implementation rate across all')
-xlabel({'Difference of importance score','between groupe leaders and members'})
+[cc,p] = corr(sorted_imp_scores', imp_sorted_hme');S = pRules(p);
+
+[cc_s,p_s] = corr(sorted_imp_scores', imp_sorted_hme', 'Type', 'Spearman');
+
+% [x_sorted, idx] = sort(M);
+% y_sorted = D(idx);
+% 
+% y_smooth = smooth(x_sorted, y_sorted, 0.8, 'lowess');
+% plot(x_sorted, y_smooth, 'k', 'linewidth', 2)
+
+x = M';
+y = D';
+% Compute ranks
+x_ranks = tiedrank(x);
+y_ranks = tiedrank(y);
+
+% Compute Spearman correlation
+[rho, sp] = corr(x, y, 'Type', 'Spearman'); %%%% ADD THIS AMONG THE STATS
+
+% Fit linear regression on ranks
+p = polyfit(x_ranks, y_ranks, 1);
+y_fit = polyval(p, x_ranks);
+
+% Map rank back to quantile positions (approximate for demo)
+sortedy = sort(y, 'ascend');
+intercept = (sortedy(floor(min(y_fit))) + sortedy(ceil(min(y_fit))))/2;
+
+y_pred = ((intercept- min(y_fit))/ max(y_fit)) * (max(y)-min(y)) + ((y_fit - min(y_fit))/ max(y_fit)) * (max(y)-min(y));
+x_pred = min(x) + (( x_ranks-1) / max( x_ranks)) * (max(x)-min(x));
+
+[~, idx]= sort(y_pred, 'ascend');
+
+% figure; 
+% plot(M, D ,'o'); hold on
+plot(x(idx), smooth(y_pred(idx),3), 'r-', 'LineWidth', 2);
+
+Stats{k+3,1} = [Rl(k),{p}];
+% plot(lm,'Marker','.','MarkerEdgeColor','none','MarkerFaceColor','none')
+
+xlabel('Mean importance across all')
+ylabel({'Difference of importance score','between groupe leaders and members'})
 legend('off')
-xlim([-0.7 0.3])
-ylim([0 0.7])
 box off
  title(['r = ',num2str(round(cc,4)),S],'FontSize',FontSz)
 set(gca,'FontSize',FontSz)
+xlim([3.5 5])
+addLetter(gca,'i')
 
+
+%% plot correlation between difference of mean importance score between PIs and lab members and mean implementation across all
+
+RoleList = {'PI' ; 'Postdoc'; 'PhD Student' ;  'RA' };
+GroupBy = [1 2 2 2];
+GroupN  = {'Group Leader','Group Members'};
+Imp = answ.isEstablished;
+Im = answ.importance;
+
+Ug = unique(GroupBy,'stable');
+m=[];
+p =[];
+for i=1:length(Ug)
+    dummy = Ug(i) == GroupBy;
+    idx = ismember(dgs{:, which_cat}, RoleList(dummy));
+    m(i,:) = nanmean(Im(idx,:));
+    p(i,:) = nanmean(Imp(idx,:));
+
+end
+
+M = p(1,:) - p(2,:);
+D = m(1,:) - m(2,:);
+
+[cc,p] = corr(M', D'); 
+S = pRules(p);
+lm = fitlm(M, D, "Intercept",true, "RobustOpts","on");
+
+subplot(1,3,2)
+plot([0 0], [ -1 1], '--', 'LineWidth', 0.2,'Color', [0.5 0.5 0.5] ); hold on
+plot([-1 1], [0 0],  '--', 'LineWidth', 0.2,'Color', [0.5 0.5 0.5] );
+plot(M, D, 'o','MarkerFaceColor','k', 'MarkerEdgeColor','k','MarkerSize',4); hold on
+plot(lm,'Marker','.','MarkerEdgeColor','none','MarkerFaceColor','none')
+xlabel({'Difference of implementation rate','between groupe leaders and members'})
+ylabel({'Difference of importance score','between groupe leaders and members'})
+legend('off')
+box off
+ title(['r = ',num2str(round(cc,4)),S],'FontSize',FontSz)
+ ylim([-0.7 0.3])
+ xlim([-0.2 0.2])
+set(gca,'FontSize',FontSz)
 addLetter(gca,'i')
 
 

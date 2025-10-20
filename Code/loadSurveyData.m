@@ -1,5 +1,5 @@
 %% Specify the path to data and code (CHANGE AS NEEDED)
-setPaths_LFR
+setPaths_LFR;
 %% Import the data using readtable (works well for Excel files)
 
 data = io.importSurvey(data_repo,survey_table);
