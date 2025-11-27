@@ -3,8 +3,8 @@
 This repository hosts the code and supporting materials for the SAFE Labs bioRxiv submission:
 
 The SAFE Labs Handbook: Community-Driven Commitments for Group Leaders to Improve Lab Culture
-bioRxiv: https://www.biorxiv.org/content/10.1101/2025.05.27.655799v1
-SAFE Labs website: https://safelabs.info/
+https://www.biorxiv.org/content/10.1101/2025.05.27.655799v1
+https://safelabs.info/
 
 ## Repository Contents
 - `Code/`: Analysis scripts and utilities used to generate figures and results.
