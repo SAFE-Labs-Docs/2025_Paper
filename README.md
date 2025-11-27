@@ -1,5 +1,20 @@
 # 2025_Paper
-Code and data for SAFE Labs bioRxiv submission
+
+This repository hosts the code and supporting materials for the SAFE Labs bioRxiv submission:
+
+The SAFE Labs Handbook: Community-Driven Commitments for Group Leaders to Improve Lab Culture
+bioRxiv: https://www.biorxiv.org/content/10.1101/2025.05.27.655799v1
+SAFE Labs website: https://safelabs.info/
+
+## Repository Contents
+- `Code/`: Analysis scripts and utilities used to generate figures and results.
+- `Data/`: Any shared datasets or metadata required to reproduce analyses.
+- `README.md`: Project overview and usage guidance.
+- `LICENSE` / `NOTICE`: Licensing terms (Apache-2.0) and citation/attribution details.
+
+## Getting Started
+- Clone the repository and review `Code/` for analysis workflows.
+- Refer to `NOTICE` for citation guidance when using or building upon this work.
  
 ## License
 - Repository-wide license: Apache License 2.0. See `LICENSE` at the repo root.
