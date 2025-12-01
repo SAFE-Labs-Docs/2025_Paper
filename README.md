@@ -1,11 +1,9 @@
 # 2025_Paper
 
-This repository hosts the code and supporting materials for the SAFE Labs publication:
-
-The SAFE Labs Handbook: Community-Driven Commitments for Group Leaders to Improve Lab Culture
-[eLife](https://elifesciences.org/articles/108853)
+This repository hosts the code and supporting materials for the SAFE Labs publication in eLife: <br>
+[The SAFE Labs Handbook: Community-Driven Commitments for Group Leaders to Improve Lab Culture](https://elifesciences.org/articles/108853) <br>
+<br>
 [SAFE Labs website](https://safelabs.info/)
-
 ## Repository Contents
 - `Code/`: Analysis scripts and utilities used to generate figures and results.
 - `Data/`: Any shared datasets or metadata required to reproduce analyses.
